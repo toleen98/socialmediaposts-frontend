@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Card, Image } from 'semantic-ui-react'
+import PostCard from '../components/PostCard'
 
 
 class Posts extends Component {
@@ -10,16 +10,20 @@ class Posts extends Component {
 
     componentDidMount() {
         console.log('hi')
-        axios
+         axios
             .get(' http://localhost:8080/api/post/posts')
-            .then(res => {
+            .then( ( res) => {
                 console.log(res.data)
+                  this.setState({posts: res.data})
             })
     }
     render() {
+        let { posts } = this.state;
+        console.log(posts)
         return(
             <div>
-                post
+                
+                
             </div>
         )
     }

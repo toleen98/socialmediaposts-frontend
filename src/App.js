@@ -15,21 +15,24 @@ import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom';
 function App() {
   return (
     <div>
-      <NavbarLayout/>
-      <Row>
+      
+      
         <Router >
-        <Col xs={2} md={4}><Sidebar/></Col>
+          <NavbarLayout/>
+          <Row>
+            <Col xs={2} md={3}><Sidebar/></Col>
         
-        <Col xs={12} md={8}>
-          <Switch>
-            <Route path="/" exact  component={Posts}/>
-            <Route path="/createpost" component={CreatePost}/>
-          </Switch>
-        </Col>
-        
+            <Col xs={12} md={6}>
+              <Switch>
+                <Route path="/" exact  component={Posts}/>
+                <Route path="/createpost" component={CreatePost}/>
+              </Switch>
+            </Col>
+            <Col md={3}></Col>
+          </Row>
 
     </Router>
-    </Row>
+    
       </div>
    
     
