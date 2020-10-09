@@ -27,8 +27,9 @@ const PostCard = ({post}) => {
                     <Card.Description>
                         { description }
                     </Card.Description>
+                    <br/>
                     <div>
-                    <Card.Meta>{ likes_count }</Card.Meta>
+                    <Card.Meta><Icon disabled name='like' /> { likes_count }</Card.Meta>
                     </div>
                 </Card.Content>
                 <Card.Content extra>

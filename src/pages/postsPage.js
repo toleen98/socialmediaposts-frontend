@@ -22,7 +22,14 @@ class Posts extends Component {
         console.log(posts)
         return(
             <div>
-                
+                <h2>Posts</h2>
+                {
+                    posts.map(post => {
+                        return (
+                            <PostCard post={post} key={post._id}/>
+                        )
+                    })
+                }
                 
             </div>
         )
