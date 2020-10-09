@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-// import {SideBarItem} from './SideBarItem/SideBarItem';
+import SideBarItem from './SidebarItem/SidebarItem';
 import {Menu} from 'semantic-ui-react';
 import './Sidebar.scss';
 
