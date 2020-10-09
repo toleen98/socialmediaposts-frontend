@@ -7,7 +7,7 @@ class NavbarLayout extends Component {
         return (
             
             <Navbar bg="dark" variant="dark">
-            <Link to='/'>
+            <Link to='/reg'>
               <Navbar.Brand >
                 {' '}
                 React Bootstrap

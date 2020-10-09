@@ -2,10 +2,12 @@ import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import Sidebar from './layouts/Sidebar/Sidebar';
 import NavbarLayout from './layouts/Navbar/Navbar';
-import {} from 'react-router-dom'
-import Posts from './pages/PostsPage'
-import CreatePost from './pages/CreatePostPage'
-import Register from './pages/auth/Register'
+import {} from 'react-router-dom';
+import Posts from './pages/PostsPage';
+import CreatePost from './pages/CreatePostPage';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login'
+
 
 import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom';
 
@@ -23,7 +25,7 @@ function App() {
             <Col xs={12} md={6}>
               <Switch>
                 <Route path="/" exact  component={Posts}/>
-                <Route path="/createpost" component={Register}/>
+                <Route path="/createpost" component={CreatePost}/>
               </Switch>
             </Col>
             <Col md={3}></Col>
