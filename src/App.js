@@ -5,7 +5,7 @@ import NavbarLayout from './layouts/Navbar/Navbar';
 import {} from 'react-router-dom'
 import Posts from './pages/PostsPage'
 import CreatePost from './pages/CreatePostPage'
-
+import Register from './pages/auth/Register'
 
 import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom';
 
@@ -15,8 +15,6 @@ import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom';
 function App() {
   return (
     <div>
-      
-      
         <Router >
           <NavbarLayout/>
           <Row>
@@ -25,7 +23,7 @@ function App() {
             <Col xs={12} md={6}>
               <Switch>
                 <Route path="/" exact  component={Posts}/>
-                <Route path="/createpost" component={CreatePost}/>
+                <Route path="/createpost" component={Register}/>
               </Switch>
             </Col>
             <Col md={3}></Col>
