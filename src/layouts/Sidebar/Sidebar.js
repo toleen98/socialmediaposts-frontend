@@ -4,6 +4,7 @@ import {Menu} from 'semantic-ui-react';
 import './Sidebar.scss';
 
 class Sidebar extends Component {
+  
   render() {
     return (
       

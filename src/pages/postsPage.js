@@ -9,17 +9,16 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        console.log('hi')
          axios
             .get(' http://localhost:8080/api/post/posts')
             .then( ( res) => {
-                console.log(res.data)
                   this.setState({posts: res.data})
             })
     }
+
     render() {
         let { posts } = this.state;
-        console.log(posts)
+        
         return(
             <div>
                 <h2>Posts</h2>

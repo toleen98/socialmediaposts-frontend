@@ -40,7 +40,7 @@ class NavbarLayout extends Component {
               
               {
                 this.state.logged ? 
-                  <Nav.Link href='/' onClick={this.onLogoutClick}>logout</Nav.Link> :
+                  <Nav.Link href='/' onClick={this.onLogoutClick}>Logout</Nav.Link> :
                   <Nav>
                     <Link to='register' >
                       <Nav.Link href='register' > Register </Nav.Link>
