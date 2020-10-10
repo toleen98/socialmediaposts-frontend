@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
     constructor() {
@@ -11,6 +13,13 @@ class Login extends Component {
           
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+          this.props.history.push("/"); // push user to dashboard when they login
+        }
+    }
+
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
@@ -21,7 +30,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        console.log(userData);
+        this.props.loginUser(userData); 
     };
 
     render() {
@@ -82,4 +91,17 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    
+  };
+  const mapStateToProps = state => ({
+    auth: state.auth,
+    
+  });
+  export default connect(
+    mapStateToProps,
+    { loginUser }
+  )(Login);
