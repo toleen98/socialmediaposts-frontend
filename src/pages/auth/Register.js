@@ -9,7 +9,7 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      errors: {}
+      
     };
   }
 onChange = e => {
@@ -25,10 +25,10 @@ const newUser = {
     };
 console.log(newUser);
   };
-render() {
-    const { errors } = this.state;
-return (
-      <div className="container">
+  render() {
+    
+    return (
+      <div className="container" style={{width: '500px', marginTop:'20px'}}>
         <div className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
@@ -48,7 +48,6 @@ return (
                 <input
                   onChange={this.onChange}
                   value={this.state.name}
-                  error={errors.name}
                   id="name"
                   type="text"
                 />
@@ -58,7 +57,6 @@ return (
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
-                  error={errors.email}
                   id="email"
                   type="email"
                 />
@@ -68,7 +66,6 @@ return (
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
-                  error={errors.password}
                   id="password"
                   type="password"
                 />
@@ -78,7 +75,6 @@ return (
                 <input
                   onChange={this.onChange}
                   value={this.state.password2}
-                  error={errors.password2}
                   id="password2"
                   type="password"
                 />
