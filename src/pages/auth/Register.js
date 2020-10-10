@@ -16,13 +16,10 @@ class Register extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    
-  }
-
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+  
   onSubmit = e => {
     e.preventDefault();
     const newUser = {

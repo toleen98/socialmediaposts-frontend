@@ -10,7 +10,7 @@ import './SidebarItem/SideBarItem.scss'
 
 class Sidebar extends Component {
   state = {
-    logged : false,
+    logged : true,
     userName :''
   }
 
