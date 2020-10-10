@@ -1,30 +1,26 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
-import Sidebar from './layouts/Sidebar/Sidebar';
-import NavbarLayout from './layouts/Navbar/Navbar';
-import {} from 'react-router-dom';
-import Posts from './pages/PostsPage';
-import CreatePost from './pages/CreatePostPage';
-import Register from './pages/auth/Register';
-import Login from './pages/auth/Login'
-
-
 import { BrowserRouter as Router, Switch,  Route } from 'react-router-dom';
+import Sidebar from '../../layouts/Sidebar/Sidebar';
+import {} from 'react-router-dom';
+import Posts from '../PostsPage';
+import CreatePost from '../CreatePostPage';
 
 
-
-
-function App() {
+function LandingPage() {
   return (
     <div>
         <Router >
-          <NavbarLayout/>
-          
+          <Row>
+            <Col xs={2} md={3}><Sidebar/></Col>
+            <Col xs={12} md={6}>
               <Switch>
                 <Route path="/" exact  component={Posts}/>
                 <Route path="/createpost" component={CreatePost}/>
               </Switch>
-            
+            </Col>
+            <Col md={3}></Col>
+          </Row>
 
     </Router>
     
@@ -35,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default LandingPage;
