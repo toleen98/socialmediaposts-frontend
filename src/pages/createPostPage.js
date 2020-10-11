@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
-import { Form, Icon } from 'semantic-ui-react';
+import { Form, Icon, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import storage  from '../firebase/firebase-config';
 
-const fileInputRef = React.createRef();
+const imgInputRef = React.createRef();
+const videoInputRef = React.createRef();
+
 
 
 class CreatePost extends Component {
@@ -14,7 +16,8 @@ class CreatePost extends Component {
         description:'',
         firebaseImage: '',
         firebaseVideo:'',
-        imgUploaded:false
+        imgUploaded:false,
+        videoUploaded:false,
         // name: this.props.auth.user.name ,
     }
      that = this;
@@ -24,9 +27,9 @@ class CreatePost extends Component {
                 imgUploaded:true
             });
         }
-        if (!this.state.imgUploaded && type === 'vedio'){
+        if (!this.state.videoUploaded && type === 'video'){
             this.setState({
-                imgUploaded:true
+                videoUploaded:true
             });
         }
    }
@@ -51,6 +54,27 @@ class CreatePost extends Component {
           storage.ref('images').child(currentImageName).getDownloadURL().then(  (url) => {
                  this.setState({firebaseImage: url});
                 this.componentDidUpdate('img');
+            })
+        })
+        
+            
+    }
+
+    uploadVideo = (e) => {
+        console.log(e)
+        let currentVideoName = "firebase-image-" + Date.now();
+
+      let uploadVideo = storage.ref(`videos/${currentVideoName}`).put(e.target.files[0]);
+
+      uploadVideo.on('state_changed',
+        (snapshot) => { },
+        (error) => {
+          alert(error);
+        },
+         () => {
+          storage.ref('videos').child(currentVideoName).getDownloadURL().then(  (url) => {
+                 this.setState({firebaseVideo: url});
+                this.componentDidUpdate('video');
             })
         })
         
@@ -89,15 +113,39 @@ class CreatePost extends Component {
                     <Form.Group>
                         <span>Add Image/video </span>
                         
-                        <Icon size='large' name='video camera' onClick={() => fileInputRef.current.click()}/>
-                        <input ref={fileInputRef} type='file' onChange={(e) => this.uploadImage(e)} style={{display:'none'}}/>
-                        {this.state.imgUploaded && <img src={this.state.firebaseImg} alt='upload_img'/>  } 
-                        
-
+                        <Icon 
+                        size='large' 
+                        name='camera' 
+                        onClick={() => imgInputRef.current.click()}
+                        />
+                        <input 
+                        ref={imgInputRef} 
+                        type='file' 
+                        accept="image/*" 
+                        onChange={(e) => this.uploadImage(e)} 
+                        style={{display:'none'}}
+                        />
+                        <Icon 
+                        size='large' 
+                        name='video camera'  
+                        onClick={() => videoInputRef.current.click()}
+                        />
+                        <input 
+                        ref={ videoInputRef } 
+                        type='file' accept='video/*' 
+                        onChange={(e) => this.uploadVideo(e)} 
+                        style={{display:'none'}}/>
                         
                         
                     </Form.Group>
-                   
+                    <Form.Field>
+                    {this.state.imgUploaded && <Label><Icon name='image' /> Image uploaded</Label> } 
+                    
+                    {this.state.videoUploaded && <Label><Icon name='file video' /> Video uploaded</Label>} 
+                    </Form.Field>
+                    
+                    
+                    <br/>
                     <Form.Button onClick={this.onPost}>Post</Form.Button>
         
                 </Form>
