@@ -1,13 +1,52 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
+import { Button, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { showSidebarFunc } from "../../actions/sidebarAction";
 
 class NavbarLayout extends Component {
   state = {
-    logged:false
+    logged:false,
+    smScreen:false,
+    
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.resize.bind(this));
+    this.resize();
+    
+  }
+
+  resize() {
+    if (window.innerWidth <= 760){
+      this.props.showSidebarFunc(false);
+    this.setState({ smScreen:true });
+    
+    
+    }
+    else {
+      
+    this.props.showSidebarFunc(true);
+    this.setState({ smScreen:false });
+    }
+    
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("resize", this.resize.bind(this));
+  // }
+
+  ShowSidebar = () =>{
+    if(!this.props.showSidebar.show){
+      this.props.showSidebarFunc(true);
+    }
+    else {
+      this.props.showSidebarFunc(false);
+    }
+    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,8 +58,6 @@ class NavbarLayout extends Component {
   }
 
   onLogoutClick = () => {
-    console.log('hi')
-    
     this.props.logoutUser();
     this.setState({logged:false})
   };
@@ -29,7 +66,12 @@ class NavbarLayout extends Component {
     render() {
         return (
             
-          <Navbar collapseOnSelect sticky="top" expand="lg" bg="dark" variant="dark">
+          <Navbar collapseOnSelect sticky="top"  bg="dark" variant="dark">
+            {this.state.smScreen && 
+            <button onClick={this.ShowSidebar}><Icon name='bars'  size='large' style={{cursor: 'pointer'}}  id='myBtn'/></button>
+             
+            
+            }
             <Link to='/'>
               <Navbar.Brand >React-Bootstrap</Navbar.Brand>
             </Link>
@@ -62,13 +104,17 @@ class NavbarLayout extends Component {
 
 
 NavbarLayout.propTypes = {
+  showSidebarFunc:PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  showSidebar: PropTypes.object.isRequired
+  
 };
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  showSidebar: state.showSidebar
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, showSidebarFunc }
 )(NavbarLayout);

@@ -6,11 +6,11 @@ import {} from 'react-router-dom';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import LandingPage from './pages/Landingpage/LandingPage';
-
 import { Provider } from "react-redux";
 import store from "./store";
-
+  
   class App extends Component  {
+
     render() {
       return (
         <Provider store={store}>
@@ -32,5 +32,6 @@ import store from "./store";
     }
   
 }
+
 
 export default App;

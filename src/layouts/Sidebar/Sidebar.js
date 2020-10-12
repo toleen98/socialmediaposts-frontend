@@ -10,9 +10,11 @@ import './SidebarItem/SideBarItem.scss'
 
 class Sidebar extends Component {
   state = {
-    logged : true,
-    userName :''
+    logged : false,
+    userName :'',
+    
   }
+  
 
   componentWillMount() {
     

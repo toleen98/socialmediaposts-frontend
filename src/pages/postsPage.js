@@ -12,7 +12,9 @@ class Posts extends Component {
          axios
             .get(' http://localhost:8080/api/post/posts')
             .then( ( res) => {
-                  this.setState({posts: res.data})
+               let data= res.data.sort((a,b) => new Date(a) < new Date(b) ? 1 : -1);
+               console.log(data)
+                  this.setState({posts: data})
             })
     }
 

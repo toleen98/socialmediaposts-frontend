@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Form, Icon, Label } from 'semantic-ui-react';
+import { Form, Icon, Label, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -14,13 +14,14 @@ class CreatePost extends Component {
     state = {
         title : '',
         description:'',
-        firebaseImage: '',
-        firebaseVideo:'',
+        imgUrl: '',
+        videoUrl:'',
         imgUploaded:false,
         videoUploaded:false,
-        // name: this.props.auth.user.name ,
+        name: this.props.auth.user.name ,
+        user_id:this.props.auth.user.id
     }
-     that = this;
+     
    componentDidUpdate(type){
        if (!this.state.imgUploaded && type === 'img'){
             this.setState({
@@ -32,6 +33,7 @@ class CreatePost extends Component {
                 videoUploaded:true
             });
         }
+        console.log((this.state))
    }
 
     onChange = e => {
@@ -52,7 +54,7 @@ class CreatePost extends Component {
         },
          () => {
           storage.ref('images').child(currentImageName).getDownloadURL().then(  (url) => {
-                 this.setState({firebaseImage: url});
+                 this.setState({imgUrl: url});
                 this.componentDidUpdate('img');
             })
         })
@@ -73,7 +75,7 @@ class CreatePost extends Component {
         },
          () => {
           storage.ref('videos').child(currentVideoName).getDownloadURL().then(  (url) => {
-                 this.setState({firebaseVideo: url});
+                 this.setState({videoUrl: url});
                 this.componentDidUpdate('video');
             })
         })
@@ -82,12 +84,14 @@ class CreatePost extends Component {
     }
 
     onPost = e => {
+        console.log(this.props.auth.user)
         console.log(this.state);
-        // axios
-        //     .post(' http://localhost:8080/api/post/createpost',{title: this.state.title, description:this.state.description, name: this.props.auth.user.name })
-        // .then(json => {
-        //  console.log(json)
-        // })
+        axios
+            .post(' http://localhost:8080/api/post/createpost',this.state)
+        .then(json => {
+            
+          this.props.history.push("/");
+        })
         
     }
 
@@ -110,8 +114,8 @@ class CreatePost extends Component {
                     style={{height:'100px'}}
                     />
                     <br/>
-                    <Form.Group>
-                        <span>Add Image/video </span>
+                    <Form.Group >
+                        <Header  size='tiny' style={{margin:'0px 10px'}}>Add Image/video</Header>
                         
                         <Icon 
                         size='large' 
@@ -140,12 +144,8 @@ class CreatePost extends Component {
                     </Form.Group>
                     <Form.Field>
                     {this.state.imgUploaded && <Label><Icon name='image' /> Image uploaded</Label> } 
-                    
                     {this.state.videoUploaded && <Label><Icon name='file video' /> Video uploaded</Label>} 
                     </Form.Field>
-                    
-                    
-                    <br/>
                     <Form.Button onClick={this.onPost}>Post</Form.Button>
         
                 </Form>

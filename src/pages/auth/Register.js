@@ -21,6 +21,7 @@ class Register extends Component {
   };
   
   onSubmit = e => {
+    console.log(this.props)
     e.preventDefault();
     const newUser = {
       name: this.state.name,
