@@ -31,7 +31,7 @@ class LandingPage extends Component {
 
   render (){
   return (
-    <div>
+    <div style={{}}>
       <Container>
       <Router >
         

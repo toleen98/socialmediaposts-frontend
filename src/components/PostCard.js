@@ -54,7 +54,7 @@ class PostCard extends Component {
 
 
     render(){
-        const { name, avatar, title, description, likes_count, createdAt, imgUrl, videoUrl } = this.state.post;
+        const { name, avatar, title, description, likes_count, createdAt, imgUrl, videoUrl, comments } = this.state.post;
         const today = new Date().toString();
         const postDate = new Date(createdAt).toString();
 
@@ -69,15 +69,16 @@ class PostCard extends Component {
                          floated='left'
                          size='mini'
                          src={avatar}
+                         circular
                          />
-                         <Card.Meta>{ name.toUpperCase() }</Card.Meta>
+                         <Card.Meta style={{color:'#08090a'}}>{ name.toUpperCase() }</Card.Meta>
                          <Card.Meta>{ date }</Card.Meta>
                          <br/>
                          <Card.Header>{ title.toUpperCase() }</Card.Header>
                          <Card.Description>
                              { description }
                              <br/>
-                             {imgUrl && <img src={imgUrl} alt='img' style={{width:'auto'}}/>}
+                             {imgUrl && <Image src={imgUrl} alt='img' style={{width:'100%',height:'200px'}}/>}
                              {videoUrl && <Player><source src={videoUrl} /></Player> }
                          </Card.Description>
                          <br/>
@@ -86,7 +87,7 @@ class PostCard extends Component {
                          </div>
                      </Card.Content>
                      <Card.Content extra>
-                         <div className='ui two buttons'>
+                         <div className='ui two buttons' style={{height:'30px'}}>
                              <Button basic  onClick={this.likePostToggle}>
                                  Like
                              </Button>

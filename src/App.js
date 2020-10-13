@@ -15,7 +15,7 @@ import store from "./store";
       return (
         <Provider store={store}>
             <Router >
-              <div>
+              <div className='App'>
                 <NavbarLayout/>
                 <Switch>
                   <Route path="/" exact  component={LandingPage}/>

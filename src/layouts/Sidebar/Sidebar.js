@@ -29,20 +29,23 @@ class Sidebar extends Component {
     return (
       
         <Menu borderless vertical stackable fixed='left' className='side-nav' >
+        <br/>
           {this.state.logged && <Menu.Item className='sidebar-item'>
             <div className='sidebar-item-alignment-container'>
               <Image
                floated='left'
-               size='mini'
+               className='img'
                src={userimg}
+               size='mini'
+               avatar
                />
-               <span>{this.state.userName.toUpperCase()}</span>
+               <span >{this.state.userName.toUpperCase()}</span>
               </div> 
             
           </Menu.Item>}
-          <br/>
+          
           <SideBarItem highlight={true} path='/'  label='Home' icon='home'/>
-          {this.state.logged && <SideBarItem path='/createpost' label='Creat Post' icon='write'/>}
+          {this.state.logged && <SideBarItem path='/createpost' label='Create Post' icon='write'/>}
           <SideBarItem label='Report history' icon='flag'/>
           <SideBarItem label='Help' icon='help circle'/>
           <SideBarItem label='Send feedback' icon='comment'/>

@@ -66,14 +66,14 @@ class NavbarLayout extends Component {
     render() {
         return (
             
-          <Navbar collapseOnSelect sticky="top"  bg="dark" variant="dark">
+          <Navbar collapseOnSelect sticky="top"  bg="dark" variant="dark" style={{height:'42px'}}>
             {this.state.smScreen && 
-            <button onClick={this.ShowSidebar}><Icon name='bars'  size='large' style={{cursor: 'pointer'}}  id='myBtn'/></button>
+            <Button icon basic color='#fff'onClick={this.ShowSidebar}><Icon name='bars'  size='large' style={{cursor: 'pointer'}}  id='myBtn'/></Button>
              
             
             }
             <Link to='/'>
-              <Navbar.Brand >React-Bootstrap</Navbar.Brand>
+              <Navbar.Brand >Faylasof</Navbar.Brand>
             </Link>
           
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
