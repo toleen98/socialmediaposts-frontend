@@ -4,6 +4,8 @@ import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Player } from 'video-react';
+import CommentInput from  './AddComment'
+import UserComment from './Comment'
 
 
 class PostCard extends Component {
@@ -85,6 +87,7 @@ class PostCard extends Component {
                          <div>
                          <Card.Meta ><Icon circular inverted name='like' size='small'  color={this.state.liked_users.includes(this.props.auth.user.id) ? 'red' : 'grey'} /> { likes_count }</Card.Meta>
                          </div>
+                        
                      </Card.Content>
                      <Card.Content extra>
                          <div className='ui two buttons' style={{height:'30px'}}>
@@ -94,6 +97,21 @@ class PostCard extends Component {
                              <Button basic >
                                  Comment
                              </Button>
+                         </div>
+                         <hr/>
+                         <div>
+                            <CommentInput postData ={this.state.post}/>
+                            {
+                                comments.map(comment => {
+                                    return (
+                                        <div>
+                                            <UserComment comment={comment} />
+                                        </div>
+                                        
+                                    )
+                                   
+                                })
+                            }
                          </div>
                      </Card.Content>
                  </Card>

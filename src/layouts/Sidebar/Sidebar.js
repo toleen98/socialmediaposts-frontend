@@ -12,7 +12,7 @@ class Sidebar extends Component {
   state = {
     logged : false,
     userName :'',
-    
+    avatar:''
   }
   
 
@@ -20,7 +20,11 @@ class Sidebar extends Component {
     
     if (this.props.auth.isAuthenticated) {
       // push user to home when they login
-      this.setState({logged:true, userName: this.props.auth.user.name })
+      this.setState({
+        logged:true, 
+        userName: this.props.auth.user.name, 
+        avatar: this.props.auth.user.avatar
+      })
     }
    
   }
@@ -35,7 +39,7 @@ class Sidebar extends Component {
               <Image
                floated='left'
                className='img'
-               src={userimg}
+               src={this.state.avatar}
                size='mini'
                avatar
                />
