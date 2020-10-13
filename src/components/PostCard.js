@@ -106,6 +106,7 @@ class PostCard extends Component {
                                     return (
                                         <div>
                                             <UserComment comment={comment} />
+                                            <br/>
                                         </div>
                                         
                                     )
