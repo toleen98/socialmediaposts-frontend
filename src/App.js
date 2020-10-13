@@ -13,18 +13,21 @@ import store from "./store";
 
     render() {
       return (
-        <Provider store={store}>
+        <div className='App'>
+          <Provider store={store}>
             <Router >
-              <div className='App'>
+              
                 <NavbarLayout/>
                 <Switch>
                   <Route path="/" exact  component={LandingPage}/>
                   <Route path="/register" component={Register}/>
                   <Route path="/login" component={Login}/>
                 </Switch> 
-              </div>   
+               
             </Router>
         </Provider>
+        </div>
+        
          
        
        

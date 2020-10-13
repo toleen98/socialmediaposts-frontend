@@ -7,6 +7,7 @@ import Posts from '../PostsPage';
 import CreatePost from '../CreatePostPage';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import RightsideCards from '../../layouts/rightSide/RightsideCards'
 
 
 class LandingPage extends Component {
@@ -31,22 +32,22 @@ class LandingPage extends Component {
 
   render (){
   return (
-    <div style={{}}>
+    <div style={{marginTop:'20px'}}>
       <Container>
       <Router >
         
         <Row>
-          <Col xs={2} md={3} >
+          <Col  >
           {this.state.showSidebar   &&  <Sidebar />}
          
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} >
             <Switch>
               <Route path="/" exact  component={Posts}/>
               <Route path="/createpost" component={CreatePost}/>
             </Switch>
           </Col>
-          {this.state.showSidebar  && <Col xs={2} md={3}></Col>}
+          {this.state.showSidebar  && <Col ><RightsideCards/></Col>}
         </Row>
 
   </Router>

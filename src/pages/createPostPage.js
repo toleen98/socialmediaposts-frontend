@@ -19,7 +19,8 @@ class CreatePost extends Component {
         imgUploaded:false,
         videoUploaded:false,
         name: this.props.auth.user.name ,
-        user_id:this.props.auth.user.id
+        user_id:this.props.auth.user.id,
+        avatar:this.props.auth.user.avatar
     }
      
    componentDidUpdate(type){

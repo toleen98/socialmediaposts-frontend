@@ -4,8 +4,8 @@ import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Player } from 'video-react';
-import CommentInput from  './AddComment'
-import UserComment from './Comment'
+import CommentInput from  './AddComment';
+import UserComment from './Comment';
 
 
 class PostCard extends Component {
@@ -14,15 +14,17 @@ class PostCard extends Component {
         this.state = {
             post : this.props.post,
             likes_count : this.props.post.likes_count,
-            liked_users: this.props.post.liked_users
+            liked_users: this.props.post.liked_users,
+            showComments:false
         }
     }
+
     componentDidUpdate() {
+        
         axios
             .put(' http://localhost:8080/api/post/updatepostLikesCount',{_id: this.state.post._id,likes_count:this.state.likes_count,liked_users: this.state.liked_users })
             .then(json => {
-                console.log(json)
-             this.setState({post : json.data})
+              this.setState({post : json.data})
             })
       }
 
@@ -41,12 +43,8 @@ class PostCard extends Component {
               likes_count++
               liked_users.push(this.props.auth.user.id)
           }
-            console.log(1)
             await this.setState({ likes_count,liked_users });
-
-             this.componentDidUpdate();
-
-            
+             this.componentDidUpdate();  
         }
         else {
             alert('You need to login')
@@ -54,19 +52,28 @@ class PostCard extends Component {
 
     }
 
+    showComments = () => {
+        if(!this.state.showComments){
+            this.setState({showComments:true})
+        }
+        else {
+            this.setState({showComments:false})
+        }
+        
+    }
+
 
     render(){
         const { name, avatar, title, description, likes_count, createdAt, imgUrl, videoUrl, comments } = this.state.post;
         const today = new Date().toString();
         const postDate = new Date(createdAt).toString();
-
         //get date 
         let date =  today.slice(0,10) === postDate.slice(0, 10) ?  'today':  postDate.slice(3, 10) ;
 
         return (
-            <div style={{marginBottom:'10px'}}>
-                 <Card style={{width:'auto'}}>
-                     <Card.Content > 
+            <div style={{marginBottom:'10px',}}>
+                 <Card style={{width:'auto',}}>
+                     <Card.Content style={{position:'relative'}} > 
                          <Image
                          floated='left'
                          size='mini'
@@ -84,8 +91,17 @@ class PostCard extends Component {
                              {videoUrl && <Player><source src={videoUrl} /></Player> }
                          </Card.Description>
                          <br/>
-                         <div>
-                         <Card.Meta ><Icon circular inverted name='like' size='small'  color={this.state.liked_users.includes(this.props.auth.user.id) ? 'red' : 'grey'} /> { likes_count }</Card.Meta>
+                         <div style={{display:'inline-flex',}}>
+                         <Card.Meta >
+                            <Icon 
+                            circular 
+                            inverted 
+                            name='like' 
+                            size='small'  
+                            color={this.state.liked_users.includes(this.props.auth.user.id) ? 'red' : 'grey'} 
+                            /> { likes_count }
+                            </Card.Meta>
+                            <Card.Meta style={{left:'80%',position: 'absolute'}}> { comments.length } comments</Card.Meta>
                          </div>
                         
                      </Card.Content>
@@ -94,15 +110,16 @@ class PostCard extends Component {
                              <Button basic  onClick={this.likePostToggle}>
                                  Like
                              </Button>
-                             <Button basic >
+                             <Button basic onClick={this.showComments}>
                                  Comment
                              </Button>
                          </div>
                          <hr/>
                          <div>
-                            <CommentInput postData ={this.state.post}/>
+                            
+                            {this.state.showComments && <CommentInput postData ={this.state.post}/>}
                             {
-                                comments.map(comment => {
+                               this.state.showComments && comments.map(comment => {
                                     return (
                                         <div>
                                             <UserComment comment={comment} />
@@ -116,6 +133,8 @@ class PostCard extends Component {
                          </div>
                      </Card.Content>
                  </Card>
+
+                 
             </div>
         );
     }

@@ -12,44 +12,52 @@ class CommentInput extends Component {
         
     }
 
+    componentDidUpdate(comment) {
+        if(comment.comment){
+        axios
+      .put('http://localhost:8080/api/post/addComment',{_id: this.state.post_id, comment:comment})
+      .then(res => {
+          
+      })}
+    }
+
     changeHndler = (e) => {
         console.log(e.target.value)
         this.setState({ [e.target.id]: e.target.value });
     }
     comment = () => {
-       
-        const comment = {
-            name: this.props.auth.user.name, 
-            comment:this.state.comment,
-            user_id:this.props.auth.user.id,
-            avatar:this.props.auth.user.avatar
-        }
-        
-        console.log(comment)
-      axios
-      .put('http://localhost:8080/api/post/addComment',{_id: this.state.post_id, comment:comment})
-      .then(res => {
-          console.log(res)
-      })
+       if(this.props.auth.isAuthenticated) {
+            const comment = {
+                name: this.props.auth.user.name, 
+                comment:this.state.comment,
+                user_id:this.props.auth.user.id,
+                avatar:this.props.auth.user.avatar
+            }
+
+            this.componentDidUpdate(comment)
+       }
+       else{
+        alert('You need to login')
+       }
+
     }
+
+
     render() {
         return (
             <div>
-            
-
-<InputGroup className="mb-3" size="sm">
-    <FormControl
-      placeholder="Recipient's username"
-      aria-label="Recipient's username"
-      aria-describedby="basic-addon2"
-      id='comment' 
-      onChange = {this.changeHndler}
-    />
-    <InputGroup.Append>
-      <InputGroup.Text id="basic-addon2" onClick={this.comment}>Comment</InputGroup.Text>
-    </InputGroup.Append>
-  </InputGroup>
-            
+                <InputGroup className="mb-3" size="sm">
+                    <FormControl
+                      placeholder="Write comment..."
+                      aria-label="Recipient's username"
+                      aria-describedby="basic-addon2"
+                      id='comment' 
+                      onChange = {this.changeHndler}
+                    />
+                    <InputGroup.Append style={{cursor:'pointer'}}>
+                      <InputGroup.Text id="basic-addon2" onClick={this.comment} >Comment</InputGroup.Text>
+                    </InputGroup.Append>
+                  </InputGroup>
             </div>
         );
     }

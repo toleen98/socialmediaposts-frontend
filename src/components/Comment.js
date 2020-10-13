@@ -3,7 +3,10 @@ import { Comment } from 'semantic-ui-react';
 
 
 const UserComment = ({comment}) => {
-
+    const today = new Date().toString();
+    const postDate = new Date(comment.date).toString();
+        //get date 
+        let date =  today.slice(0,10) === postDate.slice(0, 10) ?  'today':  postDate.slice(3, 10) ;
     return (
         <div>
             <Comment.Group>
@@ -16,12 +19,14 @@ const UserComment = ({comment}) => {
             border:"1px solid #F2F3F5",  
             width:'50%', 
             padding:'5px 15px',
-            borderRadius:' 40px '} }
+            borderRadius:' 40px ',
+            fontSize:'small'
+            } }
         >
             <Comment.Author> 
-            {comment.name} 
+            {comment.name && comment.name.toUpperCase()} 
             <Comment.Metadata>
-              <div>{comment.date}</div>
+              <div>{date}</div>
 
             </Comment.Metadata>
             </Comment.Author>
